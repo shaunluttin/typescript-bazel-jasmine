@@ -25,6 +25,11 @@ load("@build_bazel_rules_nodejs//:defs.bzl", "yarn_install")
 yarn_install(
     # Name this npm so that Bazel Label references look like @npm//package
     name = "npm",
+    manual_build_file_contents = """
+filegroup(
+  name = "bin_files",
+  srcs = glob(["node_modules/.bin/*"]),
+)""",
     package_json = "//:package.json",
     yarn_lock = "//:yarn.lock",
 )
